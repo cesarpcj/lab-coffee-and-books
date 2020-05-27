@@ -1,2 +1,35 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+<div class="" id="map"></div>
+
+
+<script>
+    const places =  {{{ json places }}};
+
+    function initMap(){
+        const $mapDiv = document.getElementById("map");
+
+        const map = new window.google.maps.Map($mapDiv, {
+        center: { lat: 38.75, lng: -9.15 },
+        zoom: 8
+        });
+
+        const markers = [];
+
+        for (let place of places) {
+
+        const marker = new window.google.maps.Marker({
+            map,
+            position: {
+            lat: place.location.coordinates[1],
+            lng:  place.location.coordinates[0]
+            }
+        });
+       
+            markers.push(marker);
+        }
+    }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuZd0mXs04bkC-kI8GlB-ybwoFRpeqtyU&callback=initMap"></script>
